@@ -28,7 +28,7 @@ final List<String> accountTypes = [
     'saving account',
     'checking account',
     'loan account',
-    // 'investment account'
+    'investment account'
   ];
 
   final List<String> accountHierarchies = [
