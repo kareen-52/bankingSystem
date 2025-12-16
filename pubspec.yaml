@@ -52,6 +52,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_localizations:
     sdk: flutter
+  open_file: ^3.5.10
 
 dev_dependencies:
   flutter_test:
