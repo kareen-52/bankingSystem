@@ -79,7 +79,7 @@ abstract class ApiService {
   @GET(ApiConstants.getInquiries)
   Future<InquiriesResponse> inquiries();
 
-  @POST("GetTransactionsForEmployee") // تأكد من الرابط كما في الباك إند
+  @POST("GetTransactionsForEmployee")
   Future<TransactionsResponse> getTransactionsForEmployee(
     @Body() EmployeeTransactionsRequest request,
   );
