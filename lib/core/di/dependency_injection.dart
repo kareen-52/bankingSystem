@@ -7,6 +7,7 @@ import 'package:banking_system/features/get_transactions/data/repo/employee_tran
 import 'package:banking_system/features/get_transactions/logic/employee_transactions_cubit.dart';
 import 'package:banking_system/features/search_account/data/repo/search_account_repo.dart';
 import 'package:banking_system/features/search_account/logic/search_account_cubit.dart';
+import 'package:banking_system/features/transfer/domain/transfer_facade.dart';
 import 'package:banking_system/features/transfer_schedule-schedule/data/repo/transfer_schedule_repo.dart';
 import 'package:banking_system/features/transfer_schedule-schedule/logic/transfer_schedule_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -51,7 +52,15 @@ Future<void> setupGetIt() async {
 
   // Transfer
   getIt.registerLazySingleton<TransferRepo>(() => TransferRepo(getIt()));
-  getIt.registerFactory<TransferCubit>(() => TransferCubit(getIt()));
+
+
+getIt.registerFactory<TransferCubit>(
+
+  () => TransferCubit(getIt<TransferFacade>()),
+);
+getIt.registerLazySingleton<TransferFacade>(
+  () => TransferFacade(getIt()),
+);
 
   //DepositOrWithdrawalSchedule
   getIt.registerLazySingleton<DepositOrWithdrawalScheduleRepo>(() => DepositOrWithdrawalScheduleRepo(getIt()));
