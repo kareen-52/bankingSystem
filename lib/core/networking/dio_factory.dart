@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -10,14 +9,14 @@ class DioFactory {
   DioFactory._();
   static Dio? dio;
 
-  static Future<Dio> getDio() async {
+  static  Dio getDio() {
     Duration timeOut = const Duration(seconds: 20);
     if (dio == null) {
       dio = Dio();
       dio!
         ..options.connectTimeout = timeOut
         ..options.receiveTimeout = timeOut;
-      await addDioHeaders();
+      addDioHeaders();
       addDioInterceptor();
 
       return dio!;
@@ -25,21 +24,20 @@ class DioFactory {
       return dio!;
     }
   }
-
-  static Future<void> addDioHeaders() async {
-    final token = await SharedPrefHelper.getSecuredString(
-      SharedPrefKeys.userToken,
-    );
+  static void addDioHeaders() async {
     dio?.options.headers = {
       'Accept': 'application/json',
-      if (token.isNotEmpty) 'Authorization': 'Bearer $token',
+      'Authorization':
+      'Bearer ${await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken)}',
     };
   }
 
-  static void setTokenInHeaderAfterLogin(String token) {
-    dio?.options.headers = {'Authorization': 'Bearer $token'};
-  }
+  static void setTokenInHeaderAfterLogin(String token){
+    dio?.options.headers = {
+      'Authorization': 'Bearer $token',
+    };
 
+  }
   static void addDioInterceptor() {
     dio?.interceptors.add(
       PrettyDioLogger(
