@@ -10,4 +10,5 @@ class CloseAccountState<T> with _$CloseAccountState<T> {
   const factory CloseAccountState.closeAccountLoading() = CloseAccountLoading;
   const factory CloseAccountState.closeAccountSuccess(T data) = CloseAccountSuccess<T>;
   const factory CloseAccountState.closeAccountError(ApiErrorModel apiErrorModel) = CloseAccountError;
+  
 }

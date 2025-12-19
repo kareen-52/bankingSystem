@@ -192,54 +192,35 @@ class _InfoCard extends StatelessWidget {
     );
   }
 }
-
 class _MainAccountCard extends StatelessWidget {
   final AccountDetailsModel account;
   const _MainAccountCard({required this.account});
 
   @override
   Widget build(BuildContext context) {
-    final statusLower = account.status?.toLowerCase() ?? "";
-    final showCloseButton = statusLower == "active" || statusLower == "suspended";
-
     final updateCubit = context.read<UpdateAccountCubit>();
     final searchCubit = context.read<SearchAccountCubit>();
 
-    updateCubit.parentAccountController.clear();
-    List<String> getAllowedStatus(String status) {
-      switch (status) {
-        case "active":
-          return ["active", "suspended", "frozen"];
-        case "closed":
-          return ["closed"];
-        case "frozen":
-          return ["frozen", "active", "suspended"];
-        case "suspended":
-          return ["suspended", "active", "frozen"];
-        default:
-          return ["active", "frozen", "suspended"];
-      }
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      updateCubit.prepare(account);
+    });
 
-    final allowedStatuses = getAllowedStatus(statusLower);
-    updateCubit.accountStatusController.text = allowedStatuses.first;
+    final statusLower = account.status?.toLowerCase() ?? "";
+    final showCloseButton = statusLower == "active" || statusLower == "suspended";
 
     return BlocListener<UpdateAccountCubit, UpdateAccountState>(
       listener: (context, state) {
         state.whenOrNull(
           updateAccountSuccess: (_) {
-
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text("Account updated successfully!"),
                 backgroundColor: Colors.green,
               ),
             );
-            updateCubit.parentAccountController.clear();
             searchCubit.searchAccount();
           },
           updateAccountError: (error) {
-
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(error.message ?? "Failed to update account."),
@@ -252,13 +233,11 @@ class _MainAccountCard extends StatelessWidget {
       child: Card(
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Wrap(
                 spacing: 40,
                 runSpacing: 20,
@@ -271,63 +250,89 @@ class _MainAccountCard extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-              // Form لتحديث الحساب
-              Form(
-                key: updateCubit.formKey,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: DropdownButtonFormField<String>(
-                        value: allowedStatuses.contains(updateCubit.accountStatusController.text)
-                            ? updateCubit.accountStatusController.text
-                            : allowedStatuses.first,
-                        decoration: const InputDecoration(
-                          labelText: "Account Status",
-                          border: OutlineInputBorder(),
-                          isDense: true,
+
+              /// ✅ الفورم الصحيح – يعتمد فقط على State
+              BlocBuilder<UpdateAccountCubit, UpdateAccountState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    updateAccountReady: (allowedStatuses, selectedStatus) {
+                      return Form(
+                        key: updateCubit.formKey,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: DropdownButtonFormField<String>(
+                                value: selectedStatus,
+                                items: allowedStatuses
+                                    .map(
+                                      (status) => DropdownMenuItem(
+                                        value: status,
+                                        child: Text(
+                                          status[0].toUpperCase() +
+                                              status.substring(1),
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                                onChanged: allowedStatuses.length == 1
+                                    ? null
+                                    : (val) {
+                                        updateCubit
+                                            .accountStatusController.text =
+                                            val ?? "";
+                                      },
+                                decoration: const InputDecoration(
+                                  labelText: "Account Status",
+                                  border: OutlineInputBorder(),
+                                  isDense: true,
+                                ),
+                                validator: (val) =>
+                                    val == null || val.isEmpty
+                                        ? "Required"
+                                        : null,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: TextFormField(
+                                controller:
+                                    updateCubit.parentAccountController,
+                                decoration: const InputDecoration(
+                                  labelText:
+                                      "Parent Account Number (Optional)",
+                                  border: OutlineInputBorder(),
+                                  isDense: true,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            ElevatedButton(
+                              onPressed: () {
+                                if (updateCubit.formKey.currentState
+                                        ?.validate() ??
+                                    false) {
+                                  updateCubit.updateAccount(account.id);
+                                }
+                              },
+                              child: const Text("Update Account"),
+                            ),
+                          ],
                         ),
-                        items: allowedStatuses
-                            .map((status) => DropdownMenuItem(
-                          value: status,
-                          child: Text(status[0].toUpperCase() + status.substring(1)),
-                        ))
-                            .toList(),
-                        onChanged: allowedStatuses.length == 1
-                            ? null
-                            : (val) {
-                          updateCubit.accountStatusController.text = val ?? "";
-                        },
-                        validator: (val) => val == null || val.isEmpty ? "Required" : null,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: TextFormField(
-                        controller: updateCubit.parentAccountController,
-                        decoration: const InputDecoration(
-                          labelText: "Parent Account Number (Optional)",
-                          border: OutlineInputBorder(),
-                          isDense: true,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (updateCubit.formKey.currentState?.validate() ?? false) {
-                          updateCubit.updateAccount(account.id);
-                        }
-                      },
-                      child: const Text("Update Account"),
-                    ),
-                  ],
-                ),
+                      );
+                    },
+                    orElse: () => const SizedBox.shrink(),
+                  );
+                },
               ),
+
               const SizedBox(height: 10),
+
               if (showCloseButton)
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                  onPressed: () => _showCloseAccountDialog(context, account.id),
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  onPressed: () =>
+                      _showCloseAccountDialog(context, account.id),
                   child: const Text("Close Account"),
                 ),
             ],
@@ -336,6 +341,10 @@ class _MainAccountCard extends StatelessWidget {
       ),
     );
   }
+
+  // باقي الكود (detail + dialog) بدون تغيير
+}
+
 
   Widget _detailItem(String label, String value, {bool isStatus = false}) {
     return Column(
@@ -366,7 +375,6 @@ class _MainAccountCard extends StatelessWidget {
   }
   void _showCloseAccountDialog(BuildContext context, int accountId) {
     final searchCubit = context.read<SearchAccountCubit>();
-
     showDialog(
       context: context,
       builder: (dialogContext) {
@@ -419,7 +427,7 @@ class _MainAccountCard extends StatelessWidget {
     );
   }
 
-}
+
 
 class _ChildrenTable extends StatelessWidget {
   final List<AccountDetailsModel> children;

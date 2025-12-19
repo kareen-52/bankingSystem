@@ -55,14 +55,15 @@ extension UpdateAccountStatePatterns<T> on UpdateAccountState<T> {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial<T> value)?  initial,TResult Function( UpdateAccountLoading<T> value)?  updateAccountLoading,TResult Function( UpdateAccountSuccess<T> value)?  updateAccountSuccess,TResult Function( UpdateAccountError<T> value)?  updateAccountError,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial<T> value)?  initial,TResult Function( UpdateAccountLoading<T> value)?  updateAccountLoading,TResult Function( UpdateAccountSuccess<T> value)?  updateAccountSuccess,TResult Function( UpdateAccountError<T> value)?  updateAccountError,TResult Function( UpdateAccountReady<T> value)?  updateAccountReady,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case UpdateAccountLoading() when updateAccountLoading != null:
 return updateAccountLoading(_that);case UpdateAccountSuccess() when updateAccountSuccess != null:
 return updateAccountSuccess(_that);case UpdateAccountError() when updateAccountError != null:
-return updateAccountError(_that);case _:
+return updateAccountError(_that);case UpdateAccountReady() when updateAccountReady != null:
+return updateAccountReady(_that);case _:
   return orElse();
 
 }
@@ -80,14 +81,15 @@ return updateAccountError(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial<T> value)  initial,required TResult Function( UpdateAccountLoading<T> value)  updateAccountLoading,required TResult Function( UpdateAccountSuccess<T> value)  updateAccountSuccess,required TResult Function( UpdateAccountError<T> value)  updateAccountError,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial<T> value)  initial,required TResult Function( UpdateAccountLoading<T> value)  updateAccountLoading,required TResult Function( UpdateAccountSuccess<T> value)  updateAccountSuccess,required TResult Function( UpdateAccountError<T> value)  updateAccountError,required TResult Function( UpdateAccountReady<T> value)  updateAccountReady,}){
 final _that = this;
 switch (_that) {
 case _Initial():
 return initial(_that);case UpdateAccountLoading():
 return updateAccountLoading(_that);case UpdateAccountSuccess():
 return updateAccountSuccess(_that);case UpdateAccountError():
-return updateAccountError(_that);case _:
+return updateAccountError(_that);case UpdateAccountReady():
+return updateAccountReady(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -104,14 +106,15 @@ return updateAccountError(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial<T> value)?  initial,TResult? Function( UpdateAccountLoading<T> value)?  updateAccountLoading,TResult? Function( UpdateAccountSuccess<T> value)?  updateAccountSuccess,TResult? Function( UpdateAccountError<T> value)?  updateAccountError,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial<T> value)?  initial,TResult? Function( UpdateAccountLoading<T> value)?  updateAccountLoading,TResult? Function( UpdateAccountSuccess<T> value)?  updateAccountSuccess,TResult? Function( UpdateAccountError<T> value)?  updateAccountError,TResult? Function( UpdateAccountReady<T> value)?  updateAccountReady,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case UpdateAccountLoading() when updateAccountLoading != null:
 return updateAccountLoading(_that);case UpdateAccountSuccess() when updateAccountSuccess != null:
 return updateAccountSuccess(_that);case UpdateAccountError() when updateAccountError != null:
-return updateAccountError(_that);case _:
+return updateAccountError(_that);case UpdateAccountReady() when updateAccountReady != null:
+return updateAccountReady(_that);case _:
   return null;
 
 }
@@ -128,13 +131,14 @@ return updateAccountError(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  updateAccountLoading,TResult Function( T data)?  updateAccountSuccess,TResult Function( ApiErrorModel apiErrorModel)?  updateAccountError,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  updateAccountLoading,TResult Function( T data)?  updateAccountSuccess,TResult Function( ApiErrorModel apiErrorModel)?  updateAccountError,TResult Function( List<String> allowedStatuses,  String selectedStatus)?  updateAccountReady,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case UpdateAccountLoading() when updateAccountLoading != null:
 return updateAccountLoading();case UpdateAccountSuccess() when updateAccountSuccess != null:
 return updateAccountSuccess(_that.data);case UpdateAccountError() when updateAccountError != null:
-return updateAccountError(_that.apiErrorModel);case _:
+return updateAccountError(_that.apiErrorModel);case UpdateAccountReady() when updateAccountReady != null:
+return updateAccountReady(_that.allowedStatuses,_that.selectedStatus);case _:
   return orElse();
 
 }
@@ -152,13 +156,14 @@ return updateAccountError(_that.apiErrorModel);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  updateAccountLoading,required TResult Function( T data)  updateAccountSuccess,required TResult Function( ApiErrorModel apiErrorModel)  updateAccountError,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  updateAccountLoading,required TResult Function( T data)  updateAccountSuccess,required TResult Function( ApiErrorModel apiErrorModel)  updateAccountError,required TResult Function( List<String> allowedStatuses,  String selectedStatus)  updateAccountReady,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case UpdateAccountLoading():
 return updateAccountLoading();case UpdateAccountSuccess():
 return updateAccountSuccess(_that.data);case UpdateAccountError():
-return updateAccountError(_that.apiErrorModel);case _:
+return updateAccountError(_that.apiErrorModel);case UpdateAccountReady():
+return updateAccountReady(_that.allowedStatuses,_that.selectedStatus);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -175,13 +180,14 @@ return updateAccountError(_that.apiErrorModel);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  updateAccountLoading,TResult? Function( T data)?  updateAccountSuccess,TResult? Function( ApiErrorModel apiErrorModel)?  updateAccountError,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  updateAccountLoading,TResult? Function( T data)?  updateAccountSuccess,TResult? Function( ApiErrorModel apiErrorModel)?  updateAccountError,TResult? Function( List<String> allowedStatuses,  String selectedStatus)?  updateAccountReady,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case UpdateAccountLoading() when updateAccountLoading != null:
 return updateAccountLoading();case UpdateAccountSuccess() when updateAccountSuccess != null:
 return updateAccountSuccess(_that.data);case UpdateAccountError() when updateAccountError != null:
-return updateAccountError(_that.apiErrorModel);case _:
+return updateAccountError(_that.apiErrorModel);case UpdateAccountReady() when updateAccountReady != null:
+return updateAccountReady(_that.allowedStatuses,_that.selectedStatus);case _:
   return null;
 
 }
@@ -379,6 +385,80 @@ class _$UpdateAccountErrorCopyWithImpl<T,$Res>
   return _then(UpdateAccountError<T>(
 null == apiErrorModel ? _self.apiErrorModel : apiErrorModel // ignore: cast_nullable_to_non_nullable
 as ApiErrorModel,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class UpdateAccountReady<T> implements UpdateAccountState<T> {
+  const UpdateAccountReady({required final  List<String> allowedStatuses, required this.selectedStatus}): _allowedStatuses = allowedStatuses;
+  
+
+ final  List<String> _allowedStatuses;
+ List<String> get allowedStatuses {
+  if (_allowedStatuses is EqualUnmodifiableListView) return _allowedStatuses;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_allowedStatuses);
+}
+
+ final  String selectedStatus;
+
+/// Create a copy of UpdateAccountState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UpdateAccountReadyCopyWith<T, UpdateAccountReady<T>> get copyWith => _$UpdateAccountReadyCopyWithImpl<T, UpdateAccountReady<T>>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateAccountReady<T>&&const DeepCollectionEquality().equals(other._allowedStatuses, _allowedStatuses)&&(identical(other.selectedStatus, selectedStatus) || other.selectedStatus == selectedStatus));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_allowedStatuses),selectedStatus);
+
+@override
+String toString() {
+  return 'UpdateAccountState<$T>.updateAccountReady(allowedStatuses: $allowedStatuses, selectedStatus: $selectedStatus)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $UpdateAccountReadyCopyWith<T,$Res> implements $UpdateAccountStateCopyWith<T, $Res> {
+  factory $UpdateAccountReadyCopyWith(UpdateAccountReady<T> value, $Res Function(UpdateAccountReady<T>) _then) = _$UpdateAccountReadyCopyWithImpl;
+@useResult
+$Res call({
+ List<String> allowedStatuses, String selectedStatus
+});
+
+
+
+
+}
+/// @nodoc
+class _$UpdateAccountReadyCopyWithImpl<T,$Res>
+    implements $UpdateAccountReadyCopyWith<T, $Res> {
+  _$UpdateAccountReadyCopyWithImpl(this._self, this._then);
+
+  final UpdateAccountReady<T> _self;
+  final $Res Function(UpdateAccountReady<T>) _then;
+
+/// Create a copy of UpdateAccountState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? allowedStatuses = null,Object? selectedStatus = null,}) {
+  return _then(UpdateAccountReady<T>(
+allowedStatuses: null == allowedStatuses ? _self._allowedStatuses : allowedStatuses // ignore: cast_nullable_to_non_nullable
+as List<String>,selectedStatus: null == selectedStatus ? _self.selectedStatus : selectedStatus // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

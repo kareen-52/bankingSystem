@@ -1,3 +1,4 @@
+import 'package:banking_system/features/admin/get_report/get_report_screen.dart';
 import 'package:banking_system/features/deposit_or_withdrawal-schedule/logic/deposit_or_withdrawal_schedule_cubit.dart';
 import 'package:banking_system/features/deposit_or_withdrawal-schedule/ui/screens/DepositOrWithdrawalSchedulePage.dart';
 import 'package:banking_system/features/deposit_or_withdrawal/logic/deposit_or_withdrawal_cubit.dart';
@@ -110,9 +111,17 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
         SideMenuItem(
         title: "Client Transactions",
         icon: Icons.list_alt,
-        isSelected: _selectedIndex == 8, // Index جديد
+        isSelected: _selectedIndex == 8, 
         onTap: () => setState(() => _selectedIndex = 8),
       ),
+
+       if (isAdmin)
+        SideMenuItem(
+          title: "Get Report",
+          icon: Icons.report_outlined,
+          isSelected: _selectedIndex == 9,
+          onTap: () => setState(() => _selectedIndex = 9),
+        ),
 
     ];
 
@@ -143,7 +152,8 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
         return "User Inquiries";
       case 8:
         return "Client Transactions History";
-
+       case 9:
+        return "Get Report";
       default:
         return "";
     }
@@ -219,6 +229,11 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
           create: (context) => getIt<EmployeeTransactionsCubit>(),
           child: const EmployeeTransactionsScreen(),
         );
+
+        case 9:
+        return  GetReportScreen();
+        
+
 
       default:
         return const Center(child: Text("Page Not Found"));

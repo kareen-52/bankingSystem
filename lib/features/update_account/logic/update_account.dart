@@ -10,4 +10,9 @@ class UpdateAccountState<T> with _$UpdateAccountState<T> {
   const factory UpdateAccountState.updateAccountLoading() = UpdateAccountLoading;
   const factory UpdateAccountState.updateAccountSuccess(T data) = UpdateAccountSuccess<T>;
   const factory UpdateAccountState.updateAccountError(ApiErrorModel apiErrorModel) = UpdateAccountError;
+  const factory UpdateAccountState.updateAccountReady({
+  required List<String> allowedStatuses,
+  required String selectedStatus,
+}) = UpdateAccountReady;
+
 }
