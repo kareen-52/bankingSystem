@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/networking/api_result.dart';
 import '../data/repo/search_account_repo.dart';
 
-
 class SearchAccountCubit extends Cubit<SearchAccountState> {
   final SearchAccountRepo _repo;
 
@@ -14,7 +13,6 @@ class SearchAccountCubit extends Cubit<SearchAccountState> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   void searchAccount() async {
-
     emit(const SearchAccountState.loading());
 
     final response = await _repo.searchAccount(searchController.text.trim());
@@ -28,7 +26,6 @@ class SearchAccountCubit extends Cubit<SearchAccountState> {
       },
     );
   }
-
 
   void clearSearch() {
     searchController.clear();

@@ -15,9 +15,9 @@ class DepositOrWithdrawalScheduleRepo {
       DepositOrWithdrawalScheduleRequest depositOrWithdrawalScheduleRequest) async {
     try {
       final response = await _apiService.depositOrWithdrawalSchedule(depositOrWithdrawalScheduleRequest);
-      return ApiResult.success(response );
+      return ApiResult.success(response ); // success result
     } catch (errro) {
-      return ApiResult.failure(ApiErrorHandler.handle(errro));
+      return ApiResult.failure(ApiErrorHandler.handle(errro)); // error handling
     }
   }
 }

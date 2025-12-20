@@ -17,11 +17,6 @@ class LoginCubit extends Cubit<LoginState> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   void emitLoginStates() async {
-    // await SharedPrefHelper.setData(SharedPrefKeys.Email, emailController.text);
-    // await SharedPrefHelper.setData(
-    //   SharedPrefKeys.pass,
-    //   passwordController.text,
-    // );
     if (!formKey.currentState!.validate()) {
       return;
     }
@@ -35,7 +30,6 @@ class LoginCubit extends Cubit<LoginState> {
 
     response.when(
       success: (loginResponse) async {
-        // await SharedPrefHelper.setSecuredString(SharedPrefKeys.userToken, loginResponse.token);  
         await SharedPrefHelper.setData('role', loginResponse.role);
         await saveUserToken(loginResponse.token);
         emit(LoginState.success(loginResponse));

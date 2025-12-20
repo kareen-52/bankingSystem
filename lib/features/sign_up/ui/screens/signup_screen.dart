@@ -12,8 +12,6 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-
-  
   late final SignupCubit signupCubit;
 
   @override
@@ -22,9 +20,10 @@ class _SignupScreenState extends State<SignupScreen> {
     signupCubit = context.read<SignupCubit>();
   }
 
-@override
+  // Dispose of the cubit when the widget is disposed
+  @override
   void dispose() {
-    signupCubit.close();   // ← هنا يتم التخلص من جميع الكونترولرز
+    signupCubit.close();
     super.dispose();
   }
 
@@ -33,12 +32,10 @@ class _SignupScreenState extends State<SignupScreen> {
     final primaryColor = Theme.of(context).primaryColor;
 
     return Scaffold(
-      backgroundColor: Colors.white, 
-      // AppBar اختياري حسب هل ستظهر كصفحة منفصلة أم داخل الداشبورد
-      // body داخل SingleChildScrollView لضمان السكرول
+      backgroundColor: Colors.white,
       body: Center(
         child: Container(
-          constraints: const BoxConstraints(maxWidth: 1100), // عرض مناسب للويب
+          constraints: const BoxConstraints(maxWidth: 1100),
           padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
@@ -47,19 +44,21 @@ class _SignupScreenState extends State<SignupScreen> {
                 Text(
                   "Register New Client Account",
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: primaryColor,
-                      ),
+                    fontWeight: FontWeight.bold,
+                    color: primaryColor,
+                  ),
                 ),
                 const SizedBox(height: 10),
-                const Text("Please fill in all required fields accurately to create the client file."),
-    
+                const Text(
+                  "Please fill in all required fields accurately to create the client file.",
+                ),
+
                 const SizedBox(height: 30),
-    
+
                 const SignupForm(),
-    
+
                 const SizedBox(height: 40),
-                
+
                 const SignupActionButtons(),
               ],
             ),

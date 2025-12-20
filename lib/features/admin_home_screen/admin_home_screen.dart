@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/shared_widgets/dashboard_layout.dart';
+import '../../core/shared_widgets/dashboard_layout.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({super.key});

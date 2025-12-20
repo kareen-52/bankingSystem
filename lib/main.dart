@@ -7,31 +7,28 @@ import 'core/helpers/extensions.dart';
 import 'core/helpers/sharedpreference.dart';
 import 'core/routing/app_router.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupGetIt();
-  await checkIfLoggedInUser();  
+
+  //check if user is logged in
+  await checkIfLoggedInUser();
   runApp(
     OverlaySupport.global(
-      child:
-      // DevicePreview(
-      //   enabled: true,
-      //   builder: (context) =>
-      BankingSystem(
+      child: BankingSystem(
         appRouter: AppRouter(),
         isUserLoggedIn: isLoggedInUser,
-      )
-    // ),
-  )
+      ),
+    ),
   );
 }
 
 checkIfLoggedInUser() async {
-  String? userToken =
-  await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken);
-  if(!userToken.isNullOrEmpty()){
+  String? userToken = await SharedPrefHelper.getSecuredString(
+    SharedPrefKeys.userToken,
+  );
+  if (!userToken.isNullOrEmpty()) {
     isLoggedInUser = true;
   }
-  isLoggedInUser = false; 
+  isLoggedInUser = false;
 }

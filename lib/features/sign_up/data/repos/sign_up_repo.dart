@@ -1,4 +1,3 @@
-
 import '../../../../core/networking/api_error_handler.dart';
 import '../../../../core/networking/api_result.dart';
 import '../../../../core/networking/api_service.dart';
@@ -11,7 +10,8 @@ class SignupRepo {
   SignupRepo(this._apiService);
 
   Future<ApiResult<SignupResponse>> signup(
-      SignupRequestBody signupRequestBody) async {
+    SignupRequestBody signupRequestBody,
+  ) async {
     try {
       final response = await _apiService.signup(signupRequestBody);
       return ApiResult.success(response);

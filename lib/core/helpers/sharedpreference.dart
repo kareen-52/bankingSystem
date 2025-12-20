@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 class SharedPrefHelper {
   // private constructor as I don't want to allow creating an instance of this class itself.
   SharedPrefHelper._();
@@ -68,22 +69,23 @@ class SharedPrefHelper {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.getString(key) ?? '';
   }
-  static setSecuredString (String key, String value) async{
 
+  static setSecuredString(String key, String value) async {
     const flutterSecureeStorage = FlutterSecureStorage();
-    debugPrint('FlutterSecureStorage : setSecuredString with key : $value and value : $value');
-    await flutterSecureeStorage.write(key:key,value:value);
-
+    debugPrint(
+      'FlutterSecureStorage : setSecuredString with key : $value and value : $value',
+    );
+    await flutterSecureeStorage.write(key: key, value: value);
   }
 
-  static getSecuredString (String key) async{
+  static getSecuredString(String key) async {
     const flutterSecureeStorage = FlutterSecureStorage();
     debugPrint('FlutterSecureStorage : getSecuredString with key');
-    return await flutterSecureeStorage.read(key:key) ?? '';
-
+    return await flutterSecureeStorage.read(key: key) ?? '';
   }
-//logout
-  static clearAllSecuredData() async{
+
+  //logout
+  static clearAllSecuredData() async {
     debugPrint('FlutterSecureStorage : all data has been cleared');
     const flutterSecureStorage = FlutterSecureStorage();
     await flutterSecureStorage.deleteAll();
@@ -94,5 +96,4 @@ class SharedPrefHelper {
     await flutterSecureStorage.delete(key: key);
     debugPrint('SharedPrefHelper: secured data with key $key has been removed');
   }
-
 }

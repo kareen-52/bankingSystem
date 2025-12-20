@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../../core/networking/api_result.dart';
@@ -8,7 +7,8 @@ import 'create_employee_state.dart';
 
 class CreateEmployeeCubit extends Cubit<CreateEmployeeState> {
   final CreateEmployeeRepo _createEmployeeRepo;
-  CreateEmployeeCubit(this._createEmployeeRepo) : super(const CreateEmployeeState.initial());
+  CreateEmployeeCubit(this._createEmployeeRepo)
+    : super(const CreateEmployeeState.initial());
 
   final userNumberController = TextEditingController();
   final nationalNumberController = TextEditingController();
@@ -47,10 +47,8 @@ class CreateEmployeeCubit extends Cubit<CreateEmployeeState> {
     );
   }
 
-
   /// Reset form fields and UI state
   void resetForm() {
-
     formKey.currentState?.reset();
     userNumberController.clear();
     nationalNumberController.clear();
@@ -60,7 +58,5 @@ class CreateEmployeeCubit extends Cubit<CreateEmployeeState> {
     locationController.clear();
     passwordController.clear();
     passwordConfirmController.clear();
-
-
   }
 }

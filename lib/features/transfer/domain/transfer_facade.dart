@@ -24,7 +24,6 @@ class TransferFacade {
 
     return result.when(
       success: (response) {
-        // ❗ منطق business ينتقل إلى هنا
         if (response.success == false) {
           return ApiResult.failure(
             ApiErrorModel(message: response.message),

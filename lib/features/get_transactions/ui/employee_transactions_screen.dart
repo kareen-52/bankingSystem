@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../logic/employee_transactions_cubit.dart';
-import '../../logic/employee_transactions_state.dart';
-import '../../data/models/transactions_response.dart';
+import '../logic/employee_transactions_cubit.dart';
+import '../logic/employee_transactions_state.dart';
+import '../data/models/transactions_response.dart';
 
 class EmployeeTransactionsScreen extends StatelessWidget {
   const EmployeeTransactionsScreen({super.key});
@@ -68,6 +68,7 @@ class EmployeeTransactionsScreen extends StatelessWidget {
       ),
     );
   }
+
 
   Widget _buildSearchSection(BuildContext context) {
     final cubit = context.read<EmployeeTransactionsCubit>();
@@ -139,9 +140,7 @@ class EmployeeTransactionsScreen extends StatelessWidget {
               ),
             )),
             
-            // -----------------------------------------------------
-            // هنا التعديل: تحويل DateTime إلى نص قبل التقسيم
-            // -----------------------------------------------------
+            // convert DateTime to string before splitting
             DataCell(Text(item.date.toIso8601String().split('T')[0])), 
             
             DataCell(Container(
@@ -174,7 +173,7 @@ class EmployeeTransactionsScreen extends StatelessWidget {
       case 'received':
         return Colors.green;
       case 'withdrawal': 
-      case 'transfer': // assuming transfer out
+      case 'transfer':
         return Colors.red;
       default: return Colors.black;
     }

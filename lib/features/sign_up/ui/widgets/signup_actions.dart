@@ -1,5 +1,4 @@
 
-import 'package:banking_system/core/routing/routes.dart';
 import 'package:banking_system/core/shared_widgets/app_text_button.dart';
 import 'package:banking_system/features/sign_up/logic/sign_up_cubit.dart';
 import 'package:banking_system/features/sign_up/logic/sign_up_state.dart';
@@ -22,19 +21,18 @@ class SignupActionButtons extends StatelessWidget {
                 behavior: SnackBarBehavior.floating,
               ),
             );
-            // إعادة ضبط الحقول أو البقاء في الصفحة
-             context.read<SignupCubit>().resetForm(); // إذا كنت تريد دالة تصفير
+            // Reset the form after successful signup
+             context.read<SignupCubit>().resetForm();
           },
           signupError: (errorModel) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
                   errorModel.getAllErrorMessages(),
-                  // style: const TextStyle(fontFamily: 'Cairo'),
                 ),
                 backgroundColor: Colors.red,
                 behavior: SnackBarBehavior.floating,
-                width: 500, // عرض مناسب للويب
+                width: 500,
               ),
             );
           },

@@ -19,6 +19,7 @@ class _GetReportScreenState extends State<GetReportScreen> {
 
   Dio? dio;
 
+// initialize dio
   @override
   void initState() {
     super.initState();
@@ -42,6 +43,7 @@ class _GetReportScreenState extends State<GetReportScreen> {
     );
   }
 
+  /// Pick start or end date
   Future<void> pickDate({required bool isStart}) async {
     final picked = await showDatePicker(
       context: context,
@@ -57,6 +59,7 @@ class _GetReportScreenState extends State<GetReportScreen> {
     }
   }
 
+  /// Download PDF report
   Future<void> downloadReport() async {
     if (dio == null) return;
 
@@ -71,19 +74,21 @@ class _GetReportScreenState extends State<GetReportScreen> {
 
     try {
       final response = await dio!.post(
-      '${ApiConstants.apiBaseUrl}GetReport',
+        '${ApiConstants.apiBaseUrl}GetReport',
         data: FormData.fromMap({
           'start_date': startDate!.toIso8601String().split('T').first,
           'end_date': endDate!.toIso8601String().split('T').first,
         }),
       );
 
-      // 🔍 DEBUG
+
       debugPrint('Status code: ${response.statusCode}');
       debugPrint('Response type: ${response.data.runtimeType}');
 
+      // create PDF blob
       final blob = html.Blob([response.data], 'application/pdf');
 
+      // trigger download
       final url = html.Url.createObjectUrlFromBlob(blob);
       html.AnchorElement(href: url)
         ..setAttribute(
@@ -92,7 +97,7 @@ class _GetReportScreenState extends State<GetReportScreen> {
         )
         ..click();
 
-      html.Url.revokeObjectUrl(url);
+      html.Url.revokeObjectUrl(url); // clean memory
     } on DioException catch (e) {
       debugPrint('Dio error: ${e.response?.data}');
       ScaffoldMessenger.of(context).showSnackBar(

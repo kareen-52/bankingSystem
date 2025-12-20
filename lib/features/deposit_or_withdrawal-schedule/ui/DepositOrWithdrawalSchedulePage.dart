@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../logic/deposit_or_withdrawal_schedule_cubit.dart';
-import '../../logic/deposit_or_withdrawal_schedule_state.dart';
+import '../logic/deposit_or_withdrawal_schedule_cubit.dart';
+import '../logic/deposit_or_withdrawal_schedule_state.dart';
 
 class DepositOrWithdrawalSchedulePage extends StatelessWidget {
   const DepositOrWithdrawalSchedulePage({super.key});
@@ -63,7 +63,10 @@ class DepositOrWithdrawalSchedulePage extends StatelessWidget {
             ),
             const SizedBox(height: 30),
 
-            BlocBuilder<DepositOrWithdrawalScheduleCubit, DepositOrWithdrawalScheduleState>(
+            BlocBuilder<
+              DepositOrWithdrawalScheduleCubit,
+              DepositOrWithdrawalScheduleState
+            >(
               builder: (context, state) {
                 if (state is Loading) {
                   return const Center(child: CircularProgressIndicator());
@@ -82,7 +85,7 @@ class DepositOrWithdrawalSchedulePage extends StatelessWidget {
                   ),
                 );
               },
-            )
+            ),
           ],
         ),
       ),

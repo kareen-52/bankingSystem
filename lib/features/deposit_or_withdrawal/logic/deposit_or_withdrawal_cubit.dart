@@ -5,16 +5,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/networking/api_result.dart';
 
-
 class DepositOrWithdrawalCubit extends Cubit<DepositOrWithdrawalState> {
   final DepositOrWithdrawalRepo _depositOrWithdrawalRepo;
-  DepositOrWithdrawalCubit(this._depositOrWithdrawalRepo) : super(const DepositOrWithdrawalState.initial());
+  DepositOrWithdrawalCubit(this._depositOrWithdrawalRepo)
+    : super(const DepositOrWithdrawalState.initial());
 
+  // form controllers
   TextEditingController accountNumberController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController transactionTypeController = TextEditingController();
 
-  String? selectedTransactionType;
+  String? selectedTransactionType;  // deposit / withdrawal
 
   final formKey = GlobalKey<FormState>();
 
@@ -22,25 +23,21 @@ class DepositOrWithdrawalCubit extends Cubit<DepositOrWithdrawalState> {
     if (!formKey.currentState!.validate()) return;
     emit(const DepositOrWithdrawalState.loading());
 
-    final typeToSend = selectedTransactionType == 'deposit' ? 'deposit' : 'withdrawal';
+    final typeToSend = selectedTransactionType == 'deposit'
+        ? 'deposit'
+        : 'withdrawal';
     final response = await _depositOrWithdrawalRepo.depositOrWithdrawal(
-     DepositOrWithdrawalRequest(
-         accountNumber: accountNumberController.text.trim(),
-      amount: amountController.text.trim(),
-      transactionType: typeToSend,
-    )
+      DepositOrWithdrawalRequest(
+        accountNumber: accountNumberController.text.trim(),
+        amount: amountController.text.trim(),
+        transactionType: typeToSend,
+      ),
     );
 
     response.when(
       success: (data) async {
         emit(DepositOrWithdrawalState.success(data));
         clearFields();
-
-        // if (data.success == false) {
-        //    emit(DepositOrWithdrawalState.error(ApiErrorModel(message: data.message)));
-        // } else {
-        //    emit(DepositOrWithdrawalState.success(data));
-        // }
       },
       failure: (apiErrorModel) {
         emit(DepositOrWithdrawalState.error(apiErrorModel));
@@ -48,11 +45,10 @@ class DepositOrWithdrawalCubit extends Cubit<DepositOrWithdrawalState> {
     );
   }
 
-void clearFields() {
+// Clear form fields
+  void clearFields() {
     accountNumberController.clear();
     amountController.clear();
     selectedTransactionType = null;
   }
-
-
 }

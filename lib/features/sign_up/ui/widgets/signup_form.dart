@@ -1,5 +1,5 @@
 import 'package:banking_system/core/helpers/constants.dart';
-import 'package:banking_system/core/shared_widgets/app_text_formField.dart';
+import 'package:banking_system/core/shared_widgets/app_text_form_field.dart';
 import 'package:banking_system/core/shared_widgets/drop_down.dart';
 import 'package:banking_system/features/sign_up/logic/sign_up_cubit.dart';
 import 'package:banking_system/features/sign_up/logic/sign_up_state.dart';
@@ -27,7 +27,7 @@ class _SignupFormState extends State<SignupForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 1. قسم البيانات الشخصية
+              // 1. personal information
               _buildSectionTitle(context, "Personal Information"),
               const SizedBox(height: 15),
               _buildTwoColumnRow(
@@ -74,7 +74,7 @@ class _SignupFormState extends State<SignupForm> {
 
               const SizedBox(height: 30),
 
-              // 2. قسم بيانات الحساب البنكي
+              // 2. account configuration
               _buildSectionTitle(context, "Bank Account Configuration "),
               const SizedBox(height: 15),
               _buildTwoColumnRow(
@@ -115,20 +115,19 @@ class _SignupFormState extends State<SignupForm> {
                 ),
               ),
               
-              // الحقل الشرطي (يظهر فقط للحسابات غير الفردية)
               if (cubit.isParentAccountFieldVisible) ...[
                 const SizedBox(height: 15),
                  AppTextFormField(
                   hintText: 'Parent Account Number (Optional)',
                   controller: cubit.parentAccountToSend,
                   validator: (val) => {},
-                  backgroundColor: Colors.amber.shade50, // تمييز بصري بسيط
+                  backgroundColor: Colors.amber.shade50, 
                 ),
               ],
 
               const SizedBox(height: 30),
 
-              // 3. إعدادات الأمان
+              // 3. security settings
               _buildSectionTitle(context, "Security Settings"),
               const SizedBox(height: 15),
               _buildTwoColumnRow(
@@ -209,7 +208,7 @@ class _SignupFormState extends State<SignupForm> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(child: first),
-        const SizedBox(width: 20), // مسافة بين العمودين
+        const SizedBox(width: 20),
         Expanded(child: second),
       ],
     );

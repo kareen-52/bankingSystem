@@ -5,12 +5,9 @@ part 'deposit_or_withdrawal_schedule_response.g.dart';
 class DepositOrWithdrawalScheduleResponse {
 
   String message;
-  // String success;
   final bool? success;
 
   DepositOrWithdrawalScheduleResponse({ required this.message, this.success });
-
-
 
   factory DepositOrWithdrawalScheduleResponse.fromJson(Map<String, dynamic> json) =>
       _$DepositOrWithdrawalScheduleResponseFromJson(json);

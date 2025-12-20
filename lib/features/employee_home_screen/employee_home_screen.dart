@@ -1,28 +1,26 @@
 import 'package:banking_system/features/admin/get_report/get_report_screen.dart';
-import 'package:banking_system/features/deposit_or_withdrawal-schedule/logic/deposit_or_withdrawal_schedule_cubit.dart';
-import 'package:banking_system/features/deposit_or_withdrawal-schedule/ui/screens/DepositOrWithdrawalSchedulePage.dart';
 import 'package:banking_system/features/deposit_or_withdrawal/logic/deposit_or_withdrawal_cubit.dart';
 import 'package:banking_system/features/deposit_or_withdrawal/ui/screens/deposit_or_withdrawal_screen.dart';
 import 'package:banking_system/features/get_transactions/logic/employee_transactions_cubit.dart';
-import 'package:banking_system/features/get_transactions/ui/screens/employee_transactions_screen.dart';
+import 'package:banking_system/features/get_transactions/ui/employee_transactions_screen.dart';
 import 'package:banking_system/features/search_account/logic/search_account_cubit.dart';
-import 'package:banking_system/features/search_account/ui/screens/search_account_screen.dart';
+import 'package:banking_system/features/search_account/ui/search_account_screen.dart';
 import 'package:banking_system/features/transfer/logic/transfer_cubit.dart';
 import 'package:banking_system/features/transfer/ui/screens/transfer_screen.dart';
 import 'package:banking_system/features/transfer_schedule-schedule/ui/screens/scheduleMainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/di/dependency_injection.dart';
-import '../../../../core/helpers/constants.dart';
-import '../../../../core/helpers/sharedpreference.dart';
-import '../../../../core/shared_widgets/dashboard_layout.dart';
-import '../../../admin/create_employee/logic/create_employee_cubit.dart';
-import '../../../admin/create_employee/ui/screens/create_employee_screen.dart';
-import '../../../admin/inquiry/logic/inquiries_cubit.dart';
-import '../../../admin/inquiry/ui/screens/inquiries_screen.dart';
-import '../../../sign_up/logic/sign_up_cubit.dart';
-import '../../../sign_up/ui/screens/signup_screen.dart';
-import '../../../update_account/logic/update_account_cubit.dart';
+import '../../core/di/dependency_injection.dart';
+import '../../core/helpers/constants.dart';
+import '../../core/helpers/sharedpreference.dart';
+import '../../core/shared_widgets/dashboard_layout.dart';
+import '../admin/create_employee/logic/create_employee_cubit.dart';
+import '../admin/create_employee/ui/create_employee_screen.dart';
+import '../admin/inquiry/logic/inquiries_cubit.dart';
+import '../admin/inquiry/ui/inquiries_screen.dart';
+import '../sign_up/logic/sign_up_cubit.dart';
+import '../sign_up/ui/screens/signup_screen.dart';
+import '../update_account/logic/update_account_cubit.dart';
 
 class EmployeeHomeScreen extends StatefulWidget {
   const EmployeeHomeScreen({super.key});
@@ -32,14 +30,13 @@ class EmployeeHomeScreen extends StatefulWidget {
 }
 
 class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
-  // للتحكم في الصفحة المعروضة حالياً
-  int _selectedIndex = 0;
-  int? userRole;
+  int _selectedIndex = 0; // selected sidebar item
+  int? userRole; // logged-in user role
 
   @override
   void initState() {
     super.initState();
-    _loadUserRole();
+    _loadUserRole(); // load role from local storage
   }
 
   Future<void> _loadUserRole() async {
@@ -48,13 +45,11 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
       userRole = role;
     });
   }
-  bool get isAdmin => userRole == 3;
+
+  bool get isAdmin => userRole == 3; // admin role check
   @override
   Widget build(BuildContext context) {
-
-
-
-    // قائمة العناصر
+    //Side Menu (Role-based)
     final List<SideMenuItem> items = [
       SideMenuItem(
         title: "Overview",
@@ -108,27 +103,26 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
           onTap: () => setState(() => _selectedIndex = 7),
         ),
 
-        SideMenuItem(
+      SideMenuItem(
         title: "Client Transactions",
         icon: Icons.list_alt,
-        isSelected: _selectedIndex == 8, 
+        isSelected: _selectedIndex == 8,
         onTap: () => setState(() => _selectedIndex = 8),
       ),
 
-       if (isAdmin)
+      if (isAdmin)
         SideMenuItem(
           title: "Get Report",
           icon: Icons.report_outlined,
           isSelected: _selectedIndex == 9,
           onTap: () => setState(() => _selectedIndex = 9),
         ),
-
     ];
 
     return DashboardLayout(
-      title: _getTitle(_selectedIndex),
-      menuItems: items,
-      child: _buildContent(_selectedIndex),
+      title: _getTitle(_selectedIndex), // page title
+      menuItems: items, // sidebar menu
+      child: _buildContent(_selectedIndex), // page content
     );
   }
 
@@ -152,7 +146,7 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
         return "User Inquiries";
       case 8:
         return "Client Transactions History";
-       case 9:
+      case 9:
         return "Get Report";
       default:
         return "";
@@ -163,20 +157,14 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
     switch (index) {
       case 0:
         return const _EmployeeDashboardOverview();
+
       case 1:
-        // هنا نقوم بحقن الكيوبت الخاص بإنشاء الحساب
-        // ونستدعي شاشة الـ Signup التي برمجناها سابقاً
         return BlocProvider(
           create: (context) => getIt<SignupCubit>(),
-          // ملاحظة: SignupScreen لديك فيها Scaffold و AppBar
-          // يفضل إما تعديل SignupScreen لتكون بدون Scaffold عند استخدامها هنا
-          // أو استخدامها كما هي (ستعمل ولكن سيكون هناك 2 AppBars)
-          // الأفضل: جعل SignupScreen مرنة (Responsive)
           child: const SignupScreen(),
         );
 
       case 2:
-        // إضافة شاشة الإيداع والسحب مع الكيوبت الخاص بها
         return BlocProvider(
           create: (context) => getIt<DepositOrWithdrawalCubit>(),
           child: const DepositOrWithdrawalScreen(),
@@ -192,7 +180,6 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
         return const ScheduleMainPage();
 
       case 5:
-        // return SearchAccountScreen();
         return MultiBlocProvider(
           providers: [
             BlocProvider<SearchAccountCubit>(
@@ -204,36 +191,26 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
           ],
           child: const SearchAccountScreen(),
         );
-//    case 6:
-//       if (!isAdmin) {
-//         return const Center(child: Text("Unauthorized"));
-//       }
-//       return BlocProvider(
-//         create: (_) => getIt<CreateEmployeeCubit>(),
-//         child: const CreateEmployeeScreen(),
-//       );
       case 6:
         return BlocProvider(
           create: (_) => getIt<CreateEmployeeCubit>(),
           child: const CreateEmployeeScreen(),
         );
-      case 7:
 
+      case 7:
         return BlocProvider(
           create: (_) => getIt<InquiriesCubit>(),
           child: const InquiriesScreen(),
         );
 
-        case 8:
+      case 8:
         return BlocProvider(
           create: (context) => getIt<EmployeeTransactionsCubit>(),
           child: const EmployeeTransactionsScreen(),
         );
 
-        case 9:
-        return  GetReportScreen();
-        
-
+      case 9:
+        return GetReportScreen();
 
       default:
         return const Center(child: Text("Page Not Found"));
@@ -241,7 +218,6 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
   }
 }
 
-// ودجت بسيطة لصفحة الرئيسية للموظف
 class _EmployeeDashboardOverview extends StatelessWidget {
   const _EmployeeDashboardOverview();
 

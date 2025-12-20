@@ -16,4 +16,6 @@ class ApiConstants {
   static const String updateAccount = "UpdateAccount/{id}";
   static const String closeAccount = "CloseAccount/{id}";
   static const String getInquiries = "GetInquiries";
+  static const String getTransactionsForEmployee = "GetTransactionsForEmployee";
+
 }

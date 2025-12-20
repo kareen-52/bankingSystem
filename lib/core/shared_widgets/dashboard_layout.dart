@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../../core/helpers/sharedpreference.dart';
 import '../../core/routing/routes.dart';
 
-// موديل بسيط لعناصر القائمة
 class SideMenuItem {
   final String title;
   final IconData icon;
@@ -24,7 +23,7 @@ class SideMenuItem {
 
 class DashboardLayout extends StatelessWidget {
   final List<SideMenuItem> menuItems;
-  final Widget child; // المحتوى المتغير (الصفحة الحالية)
+  final Widget child;
   final String title;
 
   const DashboardLayout({
@@ -34,7 +33,7 @@ class DashboardLayout extends StatelessWidget {
     required this.title,
   });
 
-  Future<void> Logout(BuildContext context) async {
+  Future<void> logout(BuildContext context) async {
     var headers = {
       'Accept': 'application/json',
       'Authorization':
@@ -42,7 +41,7 @@ class DashboardLayout extends StatelessWidget {
     };
     var dio = Dio();
     var response = await dio.request(
-      '${ApiConstants.apiBaseUrl + ApiConstants.logout}',
+      ApiConstants.apiBaseUrl + ApiConstants.logout,
       options: Options(method: 'GET', headers: headers),
     );
 
@@ -50,10 +49,10 @@ class DashboardLayout extends StatelessWidget {
       print(json.encode(response.data));
       await SharedPrefHelper.clearAllSecuredData();
       Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        Routes.landingScreen,
-                        (route) => false,
-                      );
+        context,
+        Routes.landingScreen,
+        (route) => false,
+      );
     } else {
       print(response.statusMessage);
     }
@@ -62,12 +61,12 @@ class DashboardLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F7FE), // خلفية عامة فاتحة للداشبورد
+      backgroundColor: const Color(0xFFF4F7FE),
       body: Row(
         children: [
-          // 1. Sidebar (القائمة الجانبية)
+          // Sidebar
           Container(
-            width: 280, // عرض ثابت للسايد بار
+            width: 280,
             color: Colors.white,
             child: Column(
               children: [
@@ -105,7 +104,7 @@ class DashboardLayout extends StatelessWidget {
                       horizontal: 10,
                     ),
                     itemCount: menuItems.length,
-                    separatorBuilder: (_, __) => const SizedBox(height: 5),
+                    separatorBuilder: (_, _) => const SizedBox(height: 5),
                     itemBuilder: (context, index) {
                       final item = menuItems[index];
                       return Container(
@@ -140,7 +139,7 @@ class DashboardLayout extends StatelessWidget {
                   ),
                 ),
 
-                // Logout Button (أسفل القائمة)
+                // Logout Button
                 ListTile(
                   leading: const Icon(Icons.logout, color: Colors.redAccent),
                   title: const Text(
@@ -148,8 +147,7 @@ class DashboardLayout extends StatelessWidget {
                     style: TextStyle(color: Colors.redAccent),
                   ),
                   onTap: () async {
-                    Logout(context);
-                    
+                    logout(context);
                   },
                 ),
                 const SizedBox(height: 20),
@@ -157,7 +155,7 @@ class DashboardLayout extends StatelessWidget {
             ),
           ),
 
-          // 2. Main Content Area (المحتوى الرئيسي)
+          // Main Content Area
           Expanded(
             child: Column(
               children: [

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/models/inquiry_response.dart';
-import '../../logic/inquiries_cubit.dart';
-import '../../logic/inquiries_state.dart';
+import '../data/models/inquiry_response.dart';
+import '../logic/inquiries_cubit.dart';
+import '../logic/inquiries_state.dart';
 
 class InquiriesScreen extends StatelessWidget {
   const InquiriesScreen({super.key});
@@ -17,7 +17,7 @@ class InquiriesScreen extends StatelessWidget {
             if (data.inquiries.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text("لا يوجد شكاوي حالياً"),
+                  content: Text("There are no inquiries at the moment."),
                   behavior: SnackBarBehavior.floating,
                 ),
               );
@@ -28,6 +28,7 @@ class InquiriesScreen extends StatelessWidget {
       builder: (context, state) {
         return state.when(
           initial: () {
+            // fetch inquiries
             context.read<InquiriesCubit>().emitCreateEmployeeStates();
             return const Center(child: CircularProgressIndicator());
           },
@@ -54,7 +55,6 @@ class _InquiriesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ✅ في حال ما في بيانات
     if (inquiries.isEmpty) {
       return const Center(
         child: Column(
@@ -67,7 +67,7 @@ class _InquiriesList extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              "لا يوجد شكاوي حالياً",
+              "There are no inquiries at the moment",
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.grey,
@@ -76,7 +76,7 @@ class _InquiriesList extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              "عند وصول شكاوي جديدة ستظهر هنا",
+              "New inquiries will appear here.",
               style: TextStyle(color: Colors.grey),
             ),
           ],
@@ -84,11 +84,10 @@ class _InquiriesList extends StatelessWidget {
       );
     }
 
-    // ✅ في حال في بيانات
     return ListView.separated(
       padding: const EdgeInsets.all(16),
       itemCount: inquiries.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 12),
+      separatorBuilder: (_, _) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
         final inquiry = inquiries[index];
 

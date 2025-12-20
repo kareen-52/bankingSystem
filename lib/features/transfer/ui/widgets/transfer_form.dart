@@ -1,5 +1,5 @@
 import 'package:banking_system/core/networking/api_result.dart';
-import 'package:banking_system/core/shared_widgets/app_text_formField.dart';
+import 'package:banking_system/core/shared_widgets/app_text_form_field.dart';
 import 'package:banking_system/features/transfer/logic/transfer_cubit.dart';
 import 'package:banking_system/features/transfer/logic/transfer_state.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,6 @@ class TransferForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<TransferCubit>();
     
-    // BlocBuilder لإعادة الرسم عند النجاح (لتفريغ الحقول بصرياً)
     return BlocBuilder<TransferCubit, TransferState>(
       buildWhen: (previous, current) => current is Success, 
       builder: (context, state) {

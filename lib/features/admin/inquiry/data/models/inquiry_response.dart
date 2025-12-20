@@ -7,7 +7,7 @@ class InquiriesResponse {
   final String? message;
   final List<Inquiry> inquiries;
 
-  InquiriesResponse({required this.inquiries,  this.message});
+  InquiriesResponse({required this.inquiries, this.message});
 
   factory InquiriesResponse.fromJson(Map<String, dynamic> json) =>
       _$InquiriesResponseFromJson(json);

@@ -20,36 +20,33 @@ class EmployeeTransactionsCubit extends Cubit<EmployeeTransactionsState> {
     try {
       final response = await _repo.getTransactions(searchController.text.trim());
 
-      // الحالة 1: لا يوجد معاملات (جاءت رسالة فقط)
-      if (response.transactions == null || 
-         (response!= null && "${response}"!.contains("no transactions"))) {
-        emit(EmployeeTransactionsEmpty("{$response}" ?? "No transactions found"));
+      // 1. no transactions found
+      if (("$response".contains("no transactions"))) {
+        emit(EmployeeTransactionsEmpty("{$response}"));
         return;
       }
 
-      // الحالة 2: يوجد معاملات - دمج القوائم
+      // 2. transactions found
       List<TransactionItem> allItems = [];
-      if (response.transactions != null) {
-        if (response.transactions!.sent != null) allItems.addAll(response.transactions!.sent!);
-        if (response.transactions!.received != null) allItems.addAll(response.transactions!.received!);
-        if (response.transactions!.deposit != null) allItems.addAll(response.transactions!.deposit!);
-        if (response.transactions!.withdrawal != null) allItems.addAll(response.transactions!.withdrawal!);
-      }
-
+      allItems.addAll(response.transactions.sent);
+      allItems.addAll(response.transactions.received);
+      allItems.addAll(response.transactions.deposit);
+      allItems.addAll(response.transactions.withdrawal);
+    
       if (allItems.isEmpty) {
         emit(EmployeeTransactionsEmpty("No transactions found"));
       } else {
-        // ترتيب حسب التاريخ (الأحدث أولاً)
+        // Sort transactions by date in descending order
         allItems.sort((a, b) => DateTime.parse(b.date as String).compareTo(DateTime.parse(a.date as String)));
         emit(EmployeeTransactionsSuccess(allItems));
       }
 
     } on DioException catch (e) {
-      // معالجة الأخطاء القادمة من الباك إند (مثل رقم الحساب خطأ)
+      // Handle errors returned from the backend (invalid account number)
       if (e.response != null && e.response!.data != null) {
         final data = e.response!.data;
         if (data['message'] != null) {
-           // في حالة الخطأ 422 أو 400
+           // In case of error 422 or 400
           emit(EmployeeTransactionsError(data['message']));
         } else {
           emit(EmployeeTransactionsError("An error occurred. Please try again."));

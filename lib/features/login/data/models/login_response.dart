@@ -9,8 +9,6 @@ class LoginResponse {
   int role;
   LoginResponse({ required this.message, required this.token ,required this.role});
 
-
-
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseFromJson(json);
 

@@ -32,56 +32,67 @@ part 'api_service.g.dart';
 abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 
+// login
   @POST(ApiConstants.login)
   Future<LoginResponse> login(@Body() LoginRequest loginRequest);
 
+//signup
   @POST(ApiConstants.signup)
   Future<SignupResponse> signup(@Body() SignupRequestBody signupRequestBody);
 
-
+//create employee
   @POST(ApiConstants.createEmployee)
-  Future<CreateEmployeeResponse> createEmployee(@Body() CreateEmployeeRequest createEmployeeRequest);
+  Future<CreateEmployeeResponse> createEmployee(
+    @Body() CreateEmployeeRequest createEmployeeRequest,
+  );
 
-
-
+//deposit or withdrawal
   @POST(ApiConstants.depositOrWithdrawal)
   Future<DepositOrWithdrawalResponse> depositOrWithdrawal(
     @Body() DepositOrWithdrawalRequest depositOrWithdrawalRequest,
   );
 
+//transfer
   @POST(ApiConstants.transfer)
   Future<TransferResponse> transfer(@Body() TransferRequest transferRequest);
 
+//deposit or withdrawal schedule
   @POST(ApiConstants.depositOrWithdrawalSchedule)
   Future<DepositOrWithdrawalScheduleResponse> depositOrWithdrawalSchedule(
     @Body()
     DepositOrWithdrawalScheduleRequest depositOrWithdrawalScheduleRequest,
   );
 
+//transfer schedule
   @POST(ApiConstants.transferSchedule)
   Future<TransferScheduleResponse> transferSchedule(
     @Body() TransferScheduleRequest transferScheduleRequest,
   );
 
-  @POST(ApiConstants.searchAccount) 
-  Future<SearchAccountResponse> searchAccount(@Body() SearchAccountRequest request);
+//search account
+  @POST(ApiConstants.searchAccount)
+  Future<SearchAccountResponse> searchAccount(
+    @Body() SearchAccountRequest request,
+  );
 
+//update account
   @POST(ApiConstants.updateAccount)
   Future<UpdateAccountResponse> updateAccount(
-      @Path("id") int accountId,
-      @Body() UpdateAccountRequest updateAccountRequest,
-      );
+    @Path("id") int accountId,
+    @Body() UpdateAccountRequest updateAccountRequest,
+  );
 
+//close account
   @GET(ApiConstants.closeAccount)
   Future<CloseAccountResponse> closeAccount(@Path("id") int accountId);
 
-
+//get inquiries
   @GET(ApiConstants.getInquiries)
   Future<InquiriesResponse> inquiries();
 
-  @POST("GetTransactionsForEmployee")
+//get transactions for employee
+  @POST(ApiConstants.getTransactionsForEmployee)
   Future<TransactionsResponse> getTransactionsForEmployee(
     @Body() EmployeeTransactionsRequest request,
   );
 }
-

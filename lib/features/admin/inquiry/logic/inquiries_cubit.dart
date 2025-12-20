@@ -18,11 +18,8 @@ class InquiriesCubit extends Cubit<InquiriesState> {
       },
       failure: (apiErrorModel) {
         if (apiErrorModel.message == 'There are no inquiries') {
-
           emit(
-            InquiriesState.inquiriesSuccess(
-              InquiriesResponse(inquiries: []),
-            ),
+            InquiriesState.inquiriesSuccess(InquiriesResponse(inquiries: [])),
           );
         } else {
           emit(InquiriesState.inquiriesError(apiErrorModel));
@@ -30,5 +27,4 @@ class InquiriesCubit extends Cubit<InquiriesState> {
       },
     );
   }
-
 }

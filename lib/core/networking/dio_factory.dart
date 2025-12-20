@@ -9,7 +9,7 @@ class DioFactory {
   DioFactory._();
   static Dio? dio;
 
-  static  Dio getDio() {
+  static Dio getDio() {
     Duration timeOut = const Duration(seconds: 20);
     if (dio == null) {
       dio = Dio();
@@ -24,20 +24,19 @@ class DioFactory {
       return dio!;
     }
   }
+
   static void addDioHeaders() async {
     dio?.options.headers = {
       'Accept': 'application/json',
       'Authorization':
-      'Bearer ${await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken)}',
+          'Bearer ${await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken)}',
     };
   }
 
-  static void setTokenInHeaderAfterLogin(String token){
-    dio?.options.headers = {
-      'Authorization': 'Bearer $token',
-    };
-
+  static void setTokenInHeaderAfterLogin(String token) {
+    dio?.options.headers = {'Authorization': 'Bearer $token'};
   }
+
   static void addDioInterceptor() {
     dio?.interceptors.add(
       PrettyDioLogger(

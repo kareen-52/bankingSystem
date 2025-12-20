@@ -15,7 +15,6 @@ class LandingScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // اللوجو والعنوان
               Icon(
                 Icons.account_balance_outlined,
                 size: 80,
@@ -38,10 +37,9 @@ class LandingScreen extends StatelessWidget {
               ),
               const SizedBox(height: 50),
 
-              // الكروت (Cards)
               Wrap(
-                spacing: 30, // مسافة أفقية
-                runSpacing: 30, // مسافة عمودية عند صغر الشاشة
+                spacing: 30,
+                runSpacing: 30,
                 alignment: WrapAlignment.center,
                 children: [
                   _buildRoleCard(
@@ -56,6 +54,7 @@ class LandingScreen extends StatelessWidget {
                         Routes.loginScreen,
                         arguments: LoginScreenArgs(
                           portalTitle: 'Employee Portal',
+                           // employee access
                           requiredRole: UserRole.employee,
                         ),
                       );
@@ -73,6 +72,7 @@ class LandingScreen extends StatelessWidget {
                         Routes.loginScreen,
                         arguments: LoginScreenArgs(
                           portalTitle: 'Admin Portal',
+                           // admin access
                           requiredRole:
                               UserRole.manager,
                         ),
@@ -88,6 +88,7 @@ class LandingScreen extends StatelessWidget {
     );
   }
 
+  /// Portal selection card
   Widget _buildRoleCard(
     BuildContext context, {
     required String title,

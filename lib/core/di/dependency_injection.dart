@@ -1,4 +1,3 @@
-
 import 'package:banking_system/features/deposit_or_withdrawal-schedule/data/repo/deposit_or_withdrawal_schedule_repo.dart';
 import 'package:banking_system/features/deposit_or_withdrawal-schedule/logic/deposit_or_withdrawal_schedule_cubit.dart';
 import 'package:banking_system/features/deposit_or_withdrawal/data/repo/deposit_or_withdrawal_repo.dart';
@@ -11,7 +10,6 @@ import 'package:banking_system/features/transfer/domain/transfer_facade.dart';
 import 'package:banking_system/features/transfer_schedule-schedule/data/repo/transfer_schedule_repo.dart';
 import 'package:banking_system/features/transfer_schedule-schedule/logic/transfer_schedule_cubit.dart';
 import 'package:get_it/get_it.dart';
-
 import '../../features/admin/create_employee/data/repos/create_employee_repo.dart';
 import '../../features/admin/create_employee/logic/create_employee_cubit.dart';
 import '../../features/admin/inquiry/data/repos/inquiries_repo.dart';
@@ -28,7 +26,6 @@ import '../../features/update_account/logic/close_account_cubit.dart';
 import '../../features/update_account/logic/update_account_cubit.dart';
 import '../networking/api_service.dart';
 import '../networking/dio_factory.dart';
-
 
 final getIt = GetIt.instance;
 
@@ -47,51 +44,71 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<SignupCubit>(() => SignupCubit(getIt()));
 
   //DepositOrWithdrawal
-  getIt.registerLazySingleton<DepositOrWithdrawalRepo>(() => DepositOrWithdrawalRepo(getIt()));
-  getIt.registerFactory<DepositOrWithdrawalCubit>(() => DepositOrWithdrawalCubit(getIt()));
+  getIt.registerLazySingleton<DepositOrWithdrawalRepo>(
+    () => DepositOrWithdrawalRepo(getIt()),
+  );
+  getIt.registerFactory<DepositOrWithdrawalCubit>(
+    () => DepositOrWithdrawalCubit(getIt()),
+  );
 
   // Transfer
   getIt.registerLazySingleton<TransferRepo>(() => TransferRepo(getIt()));
-
-
-getIt.registerFactory<TransferCubit>(
-
-  () => TransferCubit(getIt<TransferFacade>()),
-);
-getIt.registerLazySingleton<TransferFacade>(
-  () => TransferFacade(getIt()),
-);
+  getIt.registerFactory<TransferCubit>(
+    () => TransferCubit(getIt<TransferFacade>()),
+  );
+  getIt.registerLazySingleton<TransferFacade>(() => TransferFacade(getIt()));
 
   //DepositOrWithdrawalSchedule
-  getIt.registerLazySingleton<DepositOrWithdrawalScheduleRepo>(() => DepositOrWithdrawalScheduleRepo(getIt()));
-  getIt.registerFactory<DepositOrWithdrawalScheduleCubit>(() => DepositOrWithdrawalScheduleCubit(getIt()));
+  getIt.registerLazySingleton<DepositOrWithdrawalScheduleRepo>(
+    () => DepositOrWithdrawalScheduleRepo(getIt()),
+  );
+  getIt.registerFactory<DepositOrWithdrawalScheduleCubit>(
+    () => DepositOrWithdrawalScheduleCubit(getIt()),
+  );
 
   //TransferSchedule
-  getIt.registerLazySingleton<TransferScheduleScheduleRepo>(() => TransferScheduleScheduleRepo(getIt()));
-  getIt.registerFactory<TransferScheduleScheduleCubit>(() => TransferScheduleScheduleCubit(getIt()));
+  getIt.registerLazySingleton<TransferScheduleScheduleRepo>(
+    () => TransferScheduleScheduleRepo(getIt()),
+  );
+  getIt.registerFactory<TransferScheduleScheduleCubit>(
+    () => TransferScheduleScheduleCubit(getIt()),
+  );
 
   //search
-  getIt.registerLazySingleton<SearchAccountRepo>(() => SearchAccountRepo(getIt()));
+  getIt.registerLazySingleton<SearchAccountRepo>(
+    () => SearchAccountRepo(getIt()),
+  );
   getIt.registerFactory<SearchAccountCubit>(() => SearchAccountCubit(getIt()));
 
-
   // UpdateAccount
-  getIt.registerLazySingleton<UpdateAccountRepo>(() => UpdateAccountRepo(getIt()));
+  getIt.registerLazySingleton<UpdateAccountRepo>(
+    () => UpdateAccountRepo(getIt()),
+  );
   getIt.registerFactory<UpdateAccountCubit>(() => UpdateAccountCubit(getIt()));
 
   // CloseAccount
-  getIt.registerLazySingleton<CloseAccountRepo>(() => CloseAccountRepo(getIt()));
+  getIt.registerLazySingleton<CloseAccountRepo>(
+    () => CloseAccountRepo(getIt()),
+  );
   getIt.registerFactory<CloseAccountCubit>(() => CloseAccountCubit(getIt()));
 
   // Inquiries
   getIt.registerLazySingleton<InquiriesRepo>(() => InquiriesRepo(getIt()));
   getIt.registerFactory<InquiriesCubit>(() => InquiriesCubit(getIt()));
 
-
   // CreateEmployee
-  getIt.registerLazySingleton<CreateEmployeeRepo>(() => CreateEmployeeRepo(getIt()));
-  getIt.registerFactory<CreateEmployeeCubit>(() => CreateEmployeeCubit(getIt()));
+  getIt.registerLazySingleton<CreateEmployeeRepo>(
+    () => CreateEmployeeRepo(getIt()),
+  );
+  getIt.registerFactory<CreateEmployeeCubit>(
+    () => CreateEmployeeCubit(getIt()),
+  );
 
-  getIt.registerLazySingleton<EmployeeTransactionsRepo>(() => EmployeeTransactionsRepo(getIt()));
-  getIt.registerFactory<EmployeeTransactionsCubit>(() => EmployeeTransactionsCubit(getIt()));
+  //get employee transactions
+  getIt.registerLazySingleton<EmployeeTransactionsRepo>(
+    () => EmployeeTransactionsRepo(getIt()),
+  );
+  getIt.registerFactory<EmployeeTransactionsCubit>(
+    () => EmployeeTransactionsCubit(getIt()),
+  );
 }

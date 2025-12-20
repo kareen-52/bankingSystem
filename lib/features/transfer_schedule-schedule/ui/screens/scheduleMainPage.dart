@@ -1,6 +1,6 @@
 import 'package:banking_system/core/di/dependency_injection.dart';
 import 'package:banking_system/features/deposit_or_withdrawal-schedule/logic/deposit_or_withdrawal_schedule_cubit.dart';
-import 'package:banking_system/features/deposit_or_withdrawal-schedule/ui/screens/DepositOrWithdrawalSchedulePage.dart';
+import 'package:banking_system/features/deposit_or_withdrawal-schedule/ui/DepositOrWithdrawalSchedulePage.dart';
 import 'package:banking_system/features/transfer_schedule-schedule/logic/transfer_schedule_cubit.dart';
 import 'package:banking_system/features/transfer_schedule-schedule/ui/screens/TransferSchedulePage.dart';
 import 'package:flutter/material.dart';

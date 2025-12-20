@@ -1,6 +1,6 @@
 
 import 'package:banking_system/core/helpers/constants.dart';
-import 'package:banking_system/core/shared_widgets/app_text_formField.dart';
+import 'package:banking_system/core/shared_widgets/app_text_form_field.dart';
 import 'package:banking_system/core/shared_widgets/drop_down.dart';
 import 'package:banking_system/features/deposit_or_withdrawal/logic/deposit_or_withdrawal_cubit.dart';
 import 'package:banking_system/features/deposit_or_withdrawal/logic/deposit_or_withdrawal_state.dart';
@@ -19,7 +19,7 @@ class DepositOrWithdrawalForm extends StatelessWidget {
           key: cubit.formKey,
           child: Column(
             children: [
-              // الصف الأول: رقم الحساب + نوع العملية
+              // account number and transaction type row
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -39,8 +39,6 @@ class DepositOrWithdrawalForm extends StatelessWidget {
                       value: cubit.selectedTransactionType,
                       onChanged: (val) {
                         cubit.selectedTransactionType = val;
-                        // تحديث الواجهة لتغيير اللون أو الأيقونة مستقبلاً
-                        // context.read<DepositWithdrawalCubit>().emit(const DepositWithdrawalState.initial());
                       },
                       validator: (val) => val == null ? 'Select Transaction Type' : null,
                     ),
@@ -49,7 +47,7 @@ class DepositOrWithdrawalForm extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               
-              // الصف الثاني: المبلغ
+              // amount row
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -68,7 +66,6 @@ class DepositOrWithdrawalForm extends StatelessWidget {
                       },
                     ),
                   ),
-                  // مساحة فارغة للحفاظ على التنسيق أو لإضافة ملاحظات مستقبلاً
                   const Expanded(child: SizedBox()), 
                 ],
               ),

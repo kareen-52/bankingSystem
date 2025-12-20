@@ -10,6 +10,7 @@ class DepositOrWithdrawalScheduleCubit extends Cubit<DepositOrWithdrawalSchedule
   final DepositOrWithdrawalScheduleRepo _depositOrWithdrawalScheduleRepo;
   DepositOrWithdrawalScheduleCubit(this._depositOrWithdrawalScheduleRepo) : super(const DepositOrWithdrawalScheduleState.initial());
 
+  // form controllers
   TextEditingController accountNumberController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController transactionTypeController = TextEditingController();
