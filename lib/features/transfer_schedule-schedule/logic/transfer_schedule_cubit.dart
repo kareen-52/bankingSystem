@@ -17,8 +17,8 @@ class TransferScheduleScheduleCubit extends Cubit<TransferScheduleScheduleState>
 
   final formKey = GlobalKey<FormState>();
 
+
   void emitDepositOrWithdrawalScheduleStates() async {
-   // if (!formKey.currentState!.validate()) return;
     emit(const TransferScheduleScheduleState.loading());
 
     final response = await _transferScheduleScheduleRepo.transferScheduleSchedule(

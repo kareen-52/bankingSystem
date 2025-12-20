@@ -26,6 +26,7 @@ class SignupCubit extends Cubit<SignupState> {
   bool isParentAccountFieldVisible = false;
   final formKey = GlobalKey<FormState>();
 
+
   void changeAccountHierarchy(String? value) {
     selectedAccountHierarchy = value;
     if (value != null && value != 'individual account') {

@@ -7,8 +7,10 @@ import '../data/repo/transfer_repo.dart';
 class TransferFacade {
   final TransferRepo _transferRepo;
 
+// Constructor
   TransferFacade(this._transferRepo);
 
+// Transfer Method
   Future<ApiResult<TransferResponse>> transfer({
     required String senderAccount,
     required String receiverAccount,
@@ -22,6 +24,7 @@ class TransferFacade {
 
     final result = await _transferRepo.transfer(request);
 
+      // Handle success and failure cases
     return result.when(
       success: (response) {
         if (response.success == false) {

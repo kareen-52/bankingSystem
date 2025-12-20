@@ -32,6 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
     cubit.passwordController.addListener(_validateInputs);
   }
 
+// Validates input fields to enable/disable login button
   void _validateInputs() {
     final cubit = context.read<LoginCubit>();
     final isValid =
@@ -126,6 +127,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+
+// Builds the BlocListener and BlocBuilder for login states
   Widget _buildLoginBlocListener() {
     return BlocConsumer<LoginCubit, LoginState>(
       listenWhen: (previous, current) =>
@@ -143,11 +146,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     backgroundColor: Colors.red,
                   ),
                 );
-                // يمكن هنا استدعاء logout لمسح التوكن الذي تم حفظه للتو
                 return;
              }
-
-             // إذا تطابق الدور، تابع التوجيه
              if (loginResponse.role == UserRole.employee.value) {
                Navigator.of(context).pushNamedAndRemoveUntil(
                   Routes.employeeHomeScreen, 

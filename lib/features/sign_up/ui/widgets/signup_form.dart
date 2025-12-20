@@ -202,7 +202,7 @@ class _SignupFormState extends State<SignupForm> {
     );
   }
 
-  // Helper Widget for Web Grid (2 columns)
+  // Helper Widget for Grid (2 columns)
   Widget _buildTwoColumnRow({required Widget first, required Widget second}) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,

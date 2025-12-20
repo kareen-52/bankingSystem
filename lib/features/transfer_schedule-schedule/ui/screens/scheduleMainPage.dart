@@ -28,7 +28,7 @@ class _ScheduleMainPageState extends State<ScheduleMainPage> {
         const SizedBox(height: 20),
 
         // Dropdown filter
-        Container(
+        SizedBox(
           width: 300,
           child: DropdownButtonFormField<String>(
             value: selected,

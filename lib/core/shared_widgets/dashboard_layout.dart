@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:banking_system/core/helpers/constants.dart';
 import 'package:banking_system/core/networking/api_constants.dart';
 import 'package:dio/dio.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../core/helpers/sharedpreference.dart';
 import '../../core/routing/routes.dart';
 
+// Model for a side menu item
 class SideMenuItem {
   final String title;
   final IconData icon;
@@ -21,6 +21,7 @@ class SideMenuItem {
   });
 }
 
+// Dashboard layout widget with sidebar and main content area
 class DashboardLayout extends StatelessWidget {
   final List<SideMenuItem> menuItems;
   final Widget child;
@@ -33,6 +34,7 @@ class DashboardLayout extends StatelessWidget {
     required this.title,
   });
 
+// Logs out the user by calling the logout API and clearing stored data
   Future<void> logout(BuildContext context) async {
     var headers = {
       'Accept': 'application/json',
@@ -174,7 +176,7 @@ class DashboardLayout extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      // Admin Profile Icon example
+                      // Admin Profile Icon
                       const CircleAvatar(
                         backgroundColor: Color(0xFFF4F7FE),
                         child: Icon(Icons.person, color: Colors.grey),

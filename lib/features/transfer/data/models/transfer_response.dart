@@ -5,12 +5,9 @@ part 'transfer_response.g.dart';
 class TransferResponse {
 
   String message;
-  // String success;
   final bool? success;
 
   TransferResponse({ required this.message, this.success });
-
-
 
   factory TransferResponse.fromJson(Map<String, dynamic> json) =>
       _$TransferResponseFromJson(json);

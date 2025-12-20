@@ -41,54 +41,56 @@ class _CreateEmployeeScreenState extends State<CreateEmployeeScreen> {
             key: cubit.formKey,
             child: ListView(
               children: [
+
+                // User Number
                 AppTextFormField(
                   controller: cubit.userNumberController,
-
-                  validator: (value) =>
-                      value == null || value.isEmpty ? "Required" : null,
+                  validator: (value) => value == null || value.isEmpty ? "Required" : null,
                   hintText: 'User Number',
                 ),
                 const SizedBox(height: 20),
+
+                // National Number
                 AppTextFormField(
                   controller: cubit.nationalNumberController,
-
-                  validator: (value) =>
-                      value == null || value.isEmpty ? "Required" : null,
+                  validator: (value) => value == null || value.isEmpty ? "Required" : null,
                   hintText: 'National Number',
                 ),
                 const SizedBox(height: 20),
+
+                // First Name
                 AppTextFormField(
                   controller: cubit.firstNameController,
-
-                  validator: (value) =>
-                      value == null || value.isEmpty ? "Required" : null,
+                  validator: (value) => value == null || value.isEmpty ? "Required" : null,
                   hintText: 'First Name',
                 ),
                 const SizedBox(height: 20),
+
+                // Last Name
                 AppTextFormField(
                   controller: cubit.lastNameController,
-
-                  validator: (value) =>
-                      value == null || value.isEmpty ? "Required" : null,
+                  validator: (value) => value == null || value.isEmpty ? "Required" : null,
                   hintText: 'Last Name',
                 ),
                 const SizedBox(height: 20),
+
+                // Phone Number
                 AppTextFormField(
                   controller: cubit.phoneNumberController,
-
-                  validator: (value) =>
-                      value == null || value.isEmpty ? "Required" : null,
+                  validator: (value) => value == null || value.isEmpty ? "Required" : null,
                   hintText: 'Phone Number',
                 ),
                 const SizedBox(height: 20),
+
+                // Location
                 AppTextFormField(
                   controller: cubit.locationController,
-
-                  validator: (value) =>
-                      value == null || value.isEmpty ? "Required" : null,
+                  validator: (value) => value == null || value.isEmpty ? "Required" : null,
                   hintText: 'Location',
                 ),
                 const SizedBox(height: 20),
+
+                // Password
                 AppTextFormField(
                   controller: cubit.passwordController,
                   isObscureText: isObscureText,
@@ -102,12 +104,12 @@ class _CreateEmployeeScreenState extends State<CreateEmployeeScreen> {
                       });
                     },
                   ),
-                  validator: (value) =>
-                      value == null || value.isEmpty ? "Required" : null,
+                  validator: (value) => value == null || value.isEmpty ? "Required" : null,
                   hintText: 'Password',
                 ),
-
                 const SizedBox(height: 20),
+
+                // Confirm Password
                 AppTextFormField(
                   controller: cubit.passwordConfirmController,
                   isObscureText: isObscureText,
@@ -121,15 +123,14 @@ class _CreateEmployeeScreenState extends State<CreateEmployeeScreen> {
                       });
                     },
                   ),
-                  validator: (value) =>
-                      value == null || value.isEmpty ? "Required" : null,
+                  validator: (value) => value == null || value.isEmpty ? "Required" : null,
                   hintText: 'Confirm Password',
                 ),
-
                 const SizedBox(height: 20),
+
+                // Create Employee Button
                 state.maybeWhen(
-                  createEmployeeLoading: () =>
-                      const Center(child: CircularProgressIndicator()),
+                  createEmployeeLoading: () => const Center(child: CircularProgressIndicator()),
                   orElse: () => ElevatedButton(
                     onPressed: () {
                       if (cubit.formKey.currentState!.validate()) {

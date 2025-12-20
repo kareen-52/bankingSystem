@@ -9,6 +9,7 @@ class DioFactory {
   DioFactory._();
   static Dio? dio;
 
+// Returns a singleton Dio instance with configured timeouts, headers, and interceptors
   static Dio getDio() {
     Duration timeOut = const Duration(seconds: 20);
     if (dio == null) {
@@ -25,6 +26,7 @@ class DioFactory {
     }
   }
 
+// Adds necessary headers to Dio instance
   static void addDioHeaders() async {
     dio?.options.headers = {
       'Accept': 'application/json',
@@ -33,10 +35,12 @@ class DioFactory {
     };
   }
 
+// Sets the Authorization header with the provided token after login
   static void setTokenInHeaderAfterLogin(String token) {
     dio?.options.headers = {'Authorization': 'Bearer $token'};
   }
 
+// Adds PrettyDioLogger interceptor to Dio instance
   static void addDioInterceptor() {
     dio?.interceptors.add(
       PrettyDioLogger(

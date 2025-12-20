@@ -9,7 +9,7 @@ class TransferScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 950), // عرض مناسب للويب
+        constraints: const BoxConstraints(maxWidth: 950),
         padding: const EdgeInsets.all(30),
         child: SingleChildScrollView(
           child: Card(

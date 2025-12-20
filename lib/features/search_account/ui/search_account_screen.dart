@@ -75,11 +75,14 @@ class _SearchBarSection extends StatelessWidget {
   }
 }
 
+
+
 class _SearchResultsSection extends StatelessWidget {
   const _SearchResultsSection();
 
   @override
   Widget build(BuildContext context) {
+    // Builds the UI based on the current state of SearchAccountCubit
     return BlocBuilder<SearchAccountCubit, SearchAccountState>(
       builder: (context, state) {
         return state.when(
@@ -187,6 +190,8 @@ class _SearchResultsSection extends StatelessWidget {
   }
 }
 
+
+// Info Card Widget 
 class _InfoCard extends StatelessWidget {
   final String title;
   final String value;
@@ -253,6 +258,7 @@ class _InfoCard extends StatelessWidget {
   }
 }
 
+// Main Account Card Widget
 class _MainAccountCard extends StatelessWidget {
   final AccountDetailsModel account;
   const _MainAccountCard({required this.account});
@@ -313,7 +319,6 @@ class _MainAccountCard extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
-              /// ✅ الفورم الصحيح – يعتمد فقط على State
               BlocBuilder<UpdateAccountCubit, UpdateAccountState>(
                 builder: (context, state) {
                   return state.maybeWhen(
@@ -399,10 +404,9 @@ class _MainAccountCard extends StatelessWidget {
       ),
     );
   }
-
-  // باقي الكود (detail + dialog) بدون تغيير
 }
 
+// Detail Item Widget
 Widget _detailItem(String label, String value, {bool isStatus = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -436,6 +440,7 @@ Widget _detailItem(String label, String value, {bool isStatus = false}) {
   );
 }
 
+// Close Account Confirmation Dialog
 void _showCloseAccountDialog(BuildContext context, int accountId) {
   final searchCubit = context.read<SearchAccountCubit>();
   showDialog(
@@ -498,6 +503,7 @@ void _showCloseAccountDialog(BuildContext context, int accountId) {
   );
 }
 
+// Children Accounts Table Widget
 class _ChildrenTable extends StatelessWidget {
   final List<AccountDetailsModel> children;
   const _ChildrenTable({required this.children});

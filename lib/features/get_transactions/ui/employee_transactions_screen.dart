@@ -54,6 +54,7 @@ class EmployeeTransactionsScreen extends StatelessWidget {
                     return _buildTransactionsTable(state.allTransactions);
                   }
                   
+                  // Initial State
                   return Center(
                     child: Text(
                       "Enter account number to view transactions",
@@ -157,6 +158,8 @@ class EmployeeTransactionsScreen extends StatelessWidget {
     );
   }
 
+
+// Helper methods to get icon and color based on transaction type 
   IconData _getIconForType(String type) {
     switch (type.toLowerCase()) {
       case 'deposit': return Icons.arrow_downward;

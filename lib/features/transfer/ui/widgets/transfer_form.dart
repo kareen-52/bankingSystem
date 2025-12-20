@@ -19,11 +19,11 @@ class TransferForm extends StatelessWidget {
           key: cubit.formKey,
           child: Column(
             children: [
-              // قسم الحسابات (Sender -> Receiver)
+
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // حساب المرسل
+                  // sender account
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,22 +33,21 @@ class TransferForm extends StatelessWidget {
                         AppTextFormField(
                           hintText: 'Sender Account Number',
                           controller: cubit.accountNumberSenderController,
-                          // keyboardType: TextInputType.number,
                           suffixIcon: const Icon(Icons.outbound_outlined, color: Colors.redAccent),
                           validator: (value) => value!.isEmpty ? 'Sender Account Required' : null,
-                          backgroundColor: Colors.red.shade50.withOpacity(0.3), // تمييز بصري خفيف
+                          backgroundColor: Colors.red.shade50.withOpacity(0.3),
                         ),
                       ],
                     ),
                   ),
                   
-                  // سهم توضيحي في المنتصف
+                  
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
                     child: Icon(Icons.arrow_forward_rounded, color: Colors.grey.shade400, size: 30),
                   ),
                   
-                  // حساب المستقبل
+                  // receiver account
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,10 +57,9 @@ class TransferForm extends StatelessWidget {
                         AppTextFormField(
                           hintText: 'Receiver Account Number',
                           controller: cubit.accountNumberReceiverController,
-                          // keyboardType: TextInputType.number,
                           suffixIcon: const Icon(Icons.download_rounded, color: Colors.green),
                           validator: (value) => value!.isEmpty ? 'Receiver Account Required' : null,
-                          backgroundColor: Colors.green.shade50.withOpacity(0.3), // تمييز بصري خفيف
+                          backgroundColor: Colors.green.shade50.withOpacity(0.3),
                         ),
                       ],
                     ),
@@ -71,12 +69,12 @@ class TransferForm extends StatelessWidget {
               
               const SizedBox(height: 30),
               
-              // قسم المبلغ
+              // amount section
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    flex: 2, // يأخذ ثلثي المساحة
+                    flex: 2,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -98,7 +96,7 @@ class TransferForm extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Spacer(flex: 1), // مساحة فارغة للتنسيق
+                  const Spacer(flex: 1),
                 ],
               ),
             ],

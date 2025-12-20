@@ -16,6 +16,7 @@ class LoginCubit extends Cubit<LoginState> {
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+// Emits login states based on the login process
   void emitLoginStates() async {
     if (!formKey.currentState!.validate()) {
       return;
@@ -40,6 +41,7 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
+// Disposes controllers when the cubit is closed
 @override
   Future<void> close() {
     userNumberController.dispose();
@@ -47,7 +49,7 @@ class LoginCubit extends Cubit<LoginState> {
     return super.close();
   }
 
-
+// Saves the user token securely and sets it in Dio headers
 Future<void> saveUserToken(String token) async {
     await SharedPrefHelper.setSecuredString(SharedPrefKeys.userToken, token);
     DioFactory.setTokenInHeaderAfterLogin(token);

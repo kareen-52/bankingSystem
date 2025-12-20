@@ -1,6 +1,5 @@
 import 'package:banking_system/features/update_account/logic/close_account_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../core/networking/api_result.dart';
 import '../data/repos/close_account_repo.dart';
 

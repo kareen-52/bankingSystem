@@ -15,7 +15,7 @@ class TransferActionButtons extends StatelessWidget {
       listener: (context, state) {
         state.whenOrNull(
           success: (response) {
-            // حالة النجاح 200
+            // show success message
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('${response.message} Successfully'),
@@ -26,7 +26,7 @@ class TransferActionButtons extends StatelessWidget {
             );
           },
           error: (errorModel) {
-            // معالجة جميع الأخطاء (400, 422, etc)
+            // show error message
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
@@ -35,7 +35,7 @@ class TransferActionButtons extends StatelessWidget {
                 backgroundColor: Colors.red,
                 behavior: SnackBarBehavior.floating,
                 width: 500,
-                duration: const Duration(seconds: 4), // وقت أطول للقراءة
+                duration: const Duration(seconds: 4),
               ),
             );
           },

@@ -1,4 +1,3 @@
-
 import 'package:banking_system/features/update_account/logic/update_account.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,10 +5,6 @@ import '../../../core/networking/api_result.dart';
 import '../data/models/update_account_request.dart';
 import '../data/repos/update_account_repo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../data/models/update_account_request.dart';
-import '../data/repos/update_account_repo.dart';
-import 'update_account.dart';
 import '../../search_account/data/models/account_details_model.dart';
 
 class UpdateAccountCubit extends Cubit<UpdateAccountState> {
@@ -22,7 +17,7 @@ class UpdateAccountCubit extends Cubit<UpdateAccountState> {
   final parentAccountController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  // 🔹 هذا هو Context في State Pattern
+// Prepares the cubit with the current account details
   void prepare(AccountDetailsModel account) {
     final status = account.status?.toLowerCase() ?? "";
 
@@ -39,7 +34,7 @@ class UpdateAccountCubit extends Cubit<UpdateAccountState> {
     );
   }
 
-  // 🔹 قواعد الانتقال بين الحالات (مسموح)
+// Helper method to determine allowed statuses based on current status
   List<String> _allowedStatusesFor(String status) {
     switch (status) {
       case "active":
@@ -55,6 +50,7 @@ class UpdateAccountCubit extends Cubit<UpdateAccountState> {
     }
   }
 
+// Updates the account with new status and parent account number
   Future<void> updateAccount(int accountId) async {
     if (!formKey.currentState!.validate()) return;
 

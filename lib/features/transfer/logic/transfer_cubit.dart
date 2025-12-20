@@ -5,7 +5,6 @@ import 'package:banking_system/features/transfer/logic/transfer_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/networking/api_result.dart';
-import '../data/repo/transfer_repo.dart';
 
 
 class TransferCubit extends Cubit<TransferState> {

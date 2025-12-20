@@ -21,6 +21,7 @@ class CreateEmployeeCubit extends Cubit<CreateEmployeeState> {
 
   final formKey = GlobalKey<FormState>();
 
+// Emits states for creating an employee
   void emitCreateEmployeeStates() async {
     emit(const CreateEmployeeState.createEmployeeLoading());
 
